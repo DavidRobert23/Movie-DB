@@ -40,7 +40,7 @@ router.put('/movies/:movieId', async (req, res) => {
 router.get('/watchlist', async (req, res) => {
   const movies = await db.movies
     .find({ watchlist: 'listed' })
-    .sort(['release_date', -1])
+    .sort(['datefav', 1])
     .limit(100)
     .toArray();
 
@@ -51,7 +51,7 @@ router.get('/watchlist', async (req, res) => {
 router.get('/history', async (req, res) => {
   const history = await db.movies
     .find({ history: 'watched' })
-    .sort(['release_date', -1])
+    .sort(['dater', -1])
     .limit(100)
     .toArray();
 
@@ -60,7 +60,18 @@ router.get('/history', async (req, res) => {
 });
 
 //recommendations
+router.get('/recommendations', async (req, res) => {
 
+  const history2w = await db.movies
+   .find({ watchlist : 'listed' })
+   .sort(['vote_average', -1])
+   .limit(3)
+  .toArray();
+    
+    
+   await sleep();
+ res.send(history2w);
+});
 
 
 

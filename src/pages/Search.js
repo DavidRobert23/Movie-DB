@@ -11,6 +11,7 @@ import {
   Progress,
   Text,
   Image,
+  Badge,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import useFetchEffect from '../hooks/useFetchEffect';
@@ -53,24 +54,25 @@ export default function Search() {
       )}
       {status === STATUS.RESOLVED && (
         <UnorderedList>
-          {data.results.map(({ id, title, release_date ,poster_path, budget}) => (
+          {data.results.map(({ id, title, release_date ,poster_path,runtime, budget}) => (
             <ListItem key={id}>
               <Link as={RouterLink} to={`/movies/${id}`}>
                 <Text as="span">{title} </Text>
+                <Text as="span">{runtime} </Text>
                 <Text as="span" color="GrayText">
                   {getYear(release_date)}
                 </Text>
-          
               </Link>
               <Box>
-                
-          <Text>{"ceva ceva ceva"}</Text>
+
           <Image src={buildImageUrl(poster_path, 'w300')}
                 alt="Poster"
                 fallbackSrc={imageFallback}></Image>
-
-                <Text as="span">{budget}</Text>
+                <Text>runtime{runtime}</Text>
+                <Text>budget{budget}</Text>
           
+                <Badge colorScheme="green">{title}</Badge>
+
               </Box>
             </ListItem>
           ))}
