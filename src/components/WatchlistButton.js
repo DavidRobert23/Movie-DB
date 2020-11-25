@@ -2,13 +2,15 @@ import React from 'react';
 import { IconButton, Tooltip } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 import { STATUS } from '../utils';
-import { WATCHLIST } from '../connectors/api';
+import { WATCHLIST,RECOMMEND } from '../connectors/api';
 
 export default function WatchlistButton({ movie, status, update }) {
   const toggleWatchlist = () => {
     update({
       ...movie,
       watchlist: movie.watchlist === WATCHLIST.LISTED ? WATCHLIST.REMOVED : WATCHLIST.LISTED,
+      datefav :new Date().toLocaleString(),
+      recomended : RECOMMEND.NOTSAW ,
     });
   };
 

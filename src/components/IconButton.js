@@ -9,6 +9,7 @@ export default function HiButton({ movie, status, update }) {
     update({
       ...movie,
       history: movie.history === HISTORY.WATCHED ? HISTORY.REMOVED : HISTORY.WATCHED,
+      dater : new Date().toLocaleString(),
     });
   };
 

@@ -50,13 +50,14 @@ export default function History() {
 
   return (
     <Container p={3} maxW="80em">
-      <Text>{"ceve ceva"}</Text>
+      
       <SimpleGrid minChildWidth={150} spacing={3}>
         {movies.map(movie => (
           <Box as={Link} to={`/movies/${movie.id}`} key={movie.id} pos="relative" noOfLines={2}>
             <Badge variant="solid" colorScheme="teal" pos="absolute" top={1} right={1}>
               {movie.vote_average}
             </Badge>
+            <Badge>runtime {movie.runtime}</Badge>
             <Tooltip label={movie.title}>
               <Image
                 src={buildImageUrl(movie.poster_path, 'w300')}

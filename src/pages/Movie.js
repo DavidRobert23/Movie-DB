@@ -9,6 +9,7 @@ import {
   HStack,
   Heading,
   IconButton,
+  SimpleGrid,
 } from '@chakra-ui/react';
 import { ChevronLeftIcon} from '@chakra-ui/icons';
 //AddIcon,CheckIcon
@@ -18,6 +19,7 @@ import { buildImageUrl, imageFallback } from '../connectors/tmdb';
 import { getYear, STATUS } from '../utils';
 import WatchlistButton from '../components/WatchlistButton';
 import HiButton from '../components/IconButton';
+import ResetButton from '../components/ResetButton';
 
 
 export default function Movie() {
@@ -48,9 +50,10 @@ export default function Movie() {
   }
 
   
+  
 
   return (
-    <Container p={3} maxW="80em">
+    <Container p={5} maxW="90em">
       <HStack mb={3} justify="space-between">
         <IconButton
           aria-label="Back"
@@ -62,15 +65,13 @@ export default function Movie() {
         />
         <HStack>
           <WatchlistButton movie={movie} status={updateStatus} update={updateMovie} />
-          <HiButton
-movie={movie} status={updateStatus} update={updateMovie} 
-           
+          <HiButton movie={movie} status={updateStatus} update={updateMovie} />
+          <ResetButton movie={movie} update={updateMovie} />
           
-          />
         </HStack>
         
       </HStack>
-      <HStack spacing={3} align="flex-start">
+      <HStack spacing={2} align="flex-start">
         <Box>
           <Image
             src={buildImageUrl(movie.poster_path, 'w300')}
@@ -88,15 +89,27 @@ movie={movie} status={updateStatus} update={updateMovie}
             </Text>
           </HStack>
           <Text>{movie.overview}</Text>
-          <Text as="span" color="GrayText">
-              {movie.runtime}
-              {movie.tagline}
-              {JSON.stringify(movie.genres)}
-            </Text>
-        </Box>
-
-        
+          <Text as="span" color="GrayText"> </Text>
+          </Box>
+          
       </HStack>
+      <HStack spacing={2} align="flex-start">
+        
+        <Box>
+
+  <SimpleGrid columns={[2, null, 3]} spacing="40px">
+  <Box bg="grey" height="3em">Runtime : {movie.runtime}</Box>
+  <Box bg="grey" height="3em">Budget : {movie.budget}</Box>
+  <Box bg="grey" height="3em">Tagline : {movie.tagline}</Box>
+  <Box bg="grey" height="3em">Release Year {JSON.stringify(movie.release_date)}</Box>
+  <Box bg="grey" height="8em">Genres:{movie.genres.map(genre => (<Text>{genre.name}</Text>))}</Box>
+  <Box bg="grey" height="3em">I watched the movie :{movie.dater}</Box>
+</SimpleGrid>
+</Box>
+
+      </HStack>
+
     </Container>
+    
   );
 }
